@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class OrderUtils {
-    private static final String BASE_URL = "https://petstore.swagger.io/v2"; // Ejemplo de URL base
+    private static final String BASE_URL = "https://petstore.swagger.io/v2";
 
     private static String orderId;
     private static String petId;
