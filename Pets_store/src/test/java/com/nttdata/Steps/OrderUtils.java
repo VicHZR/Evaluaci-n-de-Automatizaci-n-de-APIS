@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class OrderUtils {
-    private static final String BASE_URL = "https://petstore.swagger.io/v2";
+    private static final String BASE_URL = "https://petstore.swagger.io/v2"; // URL base de PetStore
 
     private static String orderId;
     private static String petId;
@@ -20,13 +20,23 @@ public class OrderUtils {
         RequestSpecification request = RestAssured.given();
         request.header("Content-Type", "application/json");
 
-        // Build your request payload as needed, e.g., JSON body
-        String requestBody = "{\"orderId\": \"" + orderId + "\", \"petId\": \"" + petId + "\"}";
+        // Construir el cuerpo de la solicitud JSON según sea necesario
+        String requestBody = "{\"id\": " + orderId + ", \"petId\": " + petId + ", \"quantity\": 1, \"shipDate\": \"2024-07-04T10:10:10.381Z\", \"status\": \"placed\", \"complete\": true}";
 
-        // Send POST request and capture response
-        response = request.body(requestBody).post("http://your.api.endpoint/createOrder");
+        // Enviar la solicitud POST y capturar la respuesta
+        response = request.body(requestBody).post(BASE_URL + "/store/order");
 
-        // Optional: Print response for debugging
+        // Opcional: Imprimir la respuesta para depuración
+        System.out.println("Response: " + response.asString());
+    }
+
+    public static void submitGetRequest(String orderId) {
+        RequestSpecification request = RestAssured.given();
+
+        // Enviar la solicitud GET y capturar la respuesta
+        response = request.get(BASE_URL + "/store/order/" + orderId);
+
+        // Opcional: Imprimir la respuesta para depuración
         System.out.println("Response: " + response.asString());
     }
 
@@ -34,5 +44,5 @@ public class OrderUtils {
         response.then().statusCode(expectedStatusCode);
     }
 
-    // Implement other verification methods as needed
+    // Implementar otros métodos de verificación según sea necesario
 }
